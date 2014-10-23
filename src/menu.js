@@ -75,9 +75,9 @@ var Container = function ($element) {
 
   var container = this;
   $element.addClass('ddm-menu-container');
-  var content = $element.find('.ddm-menu-container__content');
+  var $content = $element.find('.ddm-menu-container__content');
 
-  helpers.scrollCap(content);
+  helpers.scrollCap($content);
 
   (function ensureOverlay($element) {
     var $inner = $element.find('.ddm-menu-container__inner');
