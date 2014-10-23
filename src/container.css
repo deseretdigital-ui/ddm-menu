@@ -1,0 +1,69 @@
+/* make top level elements full screen */
+html,
+body,
+.ddm-menu-container,
+.ddm-menu-container__inner {
+  -mox-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 320px;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* setup inner so menu can push over page */
+.ddm-menu-container__inner {
+  overflow: visible;
+  -webkit-transition: left .4s;
+  transition: left .4s;
+}
+
+/* make content scrollable */
+.ddm-menu-container__content {
+  position: static;
+  height: 100%;
+  overflow-x: visible;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* fix rendering scrollable children due to -webkit-overflow-scrolling: touch */
+.ddm-menu-container__content > * {
+  -webkit-transform: translate3d(0,0,0);
+}
+
+/* this fix doesn't work well on .page-wrap element for some reason */
+.ddm-menu-container__content > .page-wrap {
+  -webkit-transform: none;
+}
+
+/* set up scroll lock for components to prevent page scrolling */
+.ddm-menu-container__content--scroll-lock {
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: auto;
+}
+
+/* zero transform is only necessary when content is scrollable */
+.ddm-menu-container__content--scroll-lock > * {
+  -webkit-transform: none;
+}
+
+/* overlay to capture clicks */
+.ddm-menu-container__overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  /* ie8 allows clicks to pass through transparent elements. Use transparent background image to trick ie8 */
+  /* inline png for rgba fallback generated from http://1x1px.me/000000-0.png and converted at http://webcodertools.com/imagetobase64converter */
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNiYAAAAAkAAxkR2eQAAAAASUVORK5CYII=) repeat;
+  display: none;
+}

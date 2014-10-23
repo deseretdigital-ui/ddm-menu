@@ -1,0 +1,26 @@
+{
+  "name": "ddm-menu",
+  "version": "0.0.1",
+  "authors": [
+    "Russell Ahlstrom <rahlstrom@deseretdigital.com>"
+  ],
+  "description": "Menu drawer slider out component",
+  "main": "src/menu.js",
+  "keywords": [
+    "ddm",
+    "menu",
+    "drawer"
+  ],
+  "license": "MIT",
+  "homepage": "git@github.com:deseretdigital-ui/ddm-menu.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7 <3"
+  }
+}

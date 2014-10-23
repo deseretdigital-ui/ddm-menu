@@ -1,0 +1,42 @@
+@import 'container.css';
+
+.ddm-menu-container--open > .ddm-menu-container__inner {
+  left: 85%;
+}
+
+.ddm-menu-container--right-open > .ddm-menu-container__inner {
+  left: -85%;
+}
+
+.ddm-menu {
+  position: absolute;
+  top: 0;
+  left: -85%;
+  width: 85%;
+  height: 100%;
+  z-index: 1;
+  overflow-x: visible;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: z-index 0s .3s;
+  transition: z-index 0s .3s;
+}
+
+.ddm-menu__inner {
+  min-height: 101%;
+}
+
+.ddm-menu--right {
+  left: 100%;
+}
+
+.ddm-menu--open {
+  z-index: 300;
+  -webkit-transition: z-index 0s;
+  transition: z-index 0s;
+}
+
+.ddm-menu-container--open .ddm-menu-container__overlay,
+.ddm-menu-container--right-open .ddm-menu-container__overlay {
+  display: block;
+}
