@@ -75,8 +75,9 @@ var Container = function ($element) {
 
   var container = this;
   $element.addClass('ddm-menu-container');
+  var content = $element.find('.ddm-menu-container__content');
 
-  helpers.scrollCap($element.find('.ddm-menu-container__content'));
+  helpers.scrollCap(content);
 
   (function ensureOverlay($element) {
     var $inner = $element.find('.ddm-menu-container__inner');
@@ -90,12 +91,12 @@ var Container = function ($element) {
   })($element);
 
   var lockScroll = function () {
-    $element.addClass('ddm-menu-container__content--scroll-lock');
+    $content.addClass('ddm-menu-container__content--scroll-lock');
   };
 
   var unlockScroll = (function () {
     var unlock = function () {
-      $element.removeClass('ddm-menu-container__content--scroll-lock');
+      $content.removeClass('ddm-menu-container__content--scroll-lock');
     };
 
     if (!helpers.styleSupported('transition')) { return unlock; }
