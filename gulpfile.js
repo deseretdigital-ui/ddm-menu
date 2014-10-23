@@ -18,13 +18,13 @@ gulp.task('example', function () {
   gulp.src('./src/menu.*')
     .pipe(gulp.dest('./example'));
 
-  gulp.src('./bower_components/jquery/dist/jquery.min.js')
+  return gulp.src('./bower_components/jquery/dist/jquery.min.js')
     .pipe(gulp.dest('./example'));
 });
 
 
 
 gulp.task('ghpages', ['example'], function () {
-    return gulp.src('./example')
+    return gulp.src('./example/**/*')
       .pipe(plugins.ghPages());
 });
