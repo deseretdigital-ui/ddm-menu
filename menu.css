@@ -83,12 +83,10 @@ body,
   left: -85%;
   width: 85%;
   height: 100%;
-  z-index: 1;
   overflow-x: visible;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  -webkit-transition: z-index 0s .3s;
-  transition: z-index 0s .3s;
+  display: none;
 }
 
 .ddm-menu__inner {
@@ -100,9 +98,7 @@ body,
 }
 
 .ddm-menu--open {
-  z-index: 300;
-  -webkit-transition: z-index 0s;
-  transition: z-index 0s;
+  display: block;
 }
 
 .ddm-menu-container--open .ddm-menu-container__overlay,
