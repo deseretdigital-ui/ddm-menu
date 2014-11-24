@@ -89,16 +89,16 @@ body,
   display: none;
 }
 
+.ddm-menu--open {
+  display: block;
+}
+
 .ddm-menu__inner {
   min-height: 101%;
 }
 
 .ddm-menu--right {
   left: 100%;
-}
-
-.ddm-menu--open {
-  display: block;
 }
 
 .ddm-menu-container--open .ddm-menu-container__overlay,
