@@ -190,8 +190,17 @@ ddm.menu = (function ($) {
     });
 
     $element.on('close.ddm.menu', function () {
-      $element.removeClass('ddm-menu--open');
       container.close(containerClass);
+
+      if (!helpers.styleSupported('transition')) {
+        $element.removeClass('ddm-menu--open');
+      }
+
+      var transitionEnd = helpers.transitionEnd('ddm.menu.containerClose');
+      $container.on(transitionEnd, function (event) {
+        $element.removeClass('ddm-menu--open');
+        $container.off(transitionEnd);
+      });
     });
 
     $element.on('toggle.ddm.menu', function () {
