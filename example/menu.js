@@ -218,7 +218,9 @@ ddm.menu = (function ($) {
     });
 
     $element.on('teardown.ddm.menu', function () {
-      $element.trigger('close.ddm.menu');
+      if (menu.isOpen()) {
+        $element.trigger('close.ddm.menu');
+      }
       $element.removeClass('ddm-menu ddm-menu--right');
       $element.off('.ddm.menu');
       $.each(toggles, function (index, $toggle) {
