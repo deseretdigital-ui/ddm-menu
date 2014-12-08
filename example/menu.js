@@ -104,6 +104,9 @@ ddm.menu = (function ($) {
       var transitionEnd = helpers.transitionEnd('ddm.menu.container');
       return function () {
         $element.on(transitionEnd, function (event) {
+          var isContainerInner = event.target === $element.find('.ddm-menu-container__inner').get(0);
+          if (!isContainerInner) { return; }
+
           unlock();
           $element.off(transitionEnd);
         });
@@ -198,6 +201,9 @@ ddm.menu = (function ($) {
 
       var transitionEnd = helpers.transitionEnd('ddm.menu.containerClose');
       $container.on(transitionEnd, function (event) {
+        var isContainerInner = event.target === $container.find('.ddm-menu-container__inner').get(0);
+        if (!isContainerInner) { return; }
+
         $element.removeClass('ddm-menu--open');
         $container.off(transitionEnd);
       });
