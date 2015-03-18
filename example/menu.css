@@ -8,8 +8,6 @@ body,
   box-sizing: border-box;
   width: 100%;
   min-width: 320px;
-  height: 100%;
-  overflow: hidden;
   margin: 0;
   padding: 0;
   position: absolute;
@@ -27,10 +25,6 @@ body,
 /* make content scrollable */
 .ddm-menu-container__content {
   position: static;
-  height: 100%;
-  overflow-x: visible;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* fix rendering scrollable children due to -webkit-overflow-scrolling: touch */
@@ -40,17 +34,6 @@ body,
 
 /* this fix doesn't work well on .page-wrap element for some reason */
 .ddm-menu-container__content > .page-wrap {
-  -webkit-transform: none;
-}
-
-/* set up scroll lock for components to prevent page scrolling */
-.ddm-menu-container__content--scroll-lock {
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: auto;
-}
-
-/* zero transform is only necessary when content is scrollable */
-.ddm-menu-container__content--scroll-lock > * {
   -webkit-transform: none;
 }
 
