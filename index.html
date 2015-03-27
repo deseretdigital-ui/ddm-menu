@@ -16,14 +16,12 @@
   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
   <link href="menu.css" rel="stylesheet" />
-
-  <link href="example.css" rel="stylesheet" />
-  <script src="example.js"></script>
+  <script src="menu.js"></script>
 
 </head>
 <body>
 
-  <div class="ddm-menu-container ddm-menu-container--open-left">
+  <div class="ddm-menu-container">
     <div class="ddm-menu-container__inner">
 
       <div class="header">
@@ -35,17 +33,16 @@
       </div>
 
       <div class="ddm-menu-container__content">
-
         <div class="page-wrap">
 
           <div class="header">
             <div class="reserved"></div>
           </div>
 
-          <div class="show ddm-menu ddm-menu--left ddm-menu--open" id="demoMenuLeft">
+          <div class="ddm-menu ddm-menu--left" id="anotherDemoMenuLeft">
             <div class="ddm-menu__inner">
               <div class="head">
-                Menu Left
+                Another Menu Left
               </div>
               <div class="body">
                 <ul>
@@ -74,10 +71,10 @@
             </div>
           </div>
 
-          <div class="ddm-menu ddm-menu--left" id="anotherDemoMenuLeft">
+          <div class="ddm-menu ddm-menu--left" id="demoMenuLeft">
             <div class="ddm-menu__inner">
               <div class="head">
-                Another Menu Left
+                Menu Left
               </div>
               <div class="body">
                 <ul>
@@ -206,9 +203,188 @@
           <div class="dummy-content" data-fill="6" data-fin></div>
 
         </div><!-- /.page-wrap -->
-      </div><!-- /.ddm-menu-container__content -->
-    </div><!-- /.ddm-menu-container__inner -->
-  </div><!-- /.ddm-menu-container -->
+      </div><!-- /.content -->
+    </div><!-- /.inner -->
+  </div><!-- /.container -->
+
+  <script>
+  $(function () {
+
+    ddm.menu($('#demoMenuLeft')).addToggles(
+      $('#demoMenuLeft .head'),
+      $('.header .menu-left-toggle')
+    );
+
+    ddm.menu($('#demoMenuRight')).addToggles(
+      $('#demoMenuRight .head'),
+      $('.header .menu-right-toggle')
+    );
+
+    ddm.menu($('#anotherDemoMenuLeft')).addToggles(
+      $('#anotherDemoMenuLeft .head'),
+      $('#anotherDemoMenuLeftToggle')
+    );
+
+    var initializeTeardownMenu = function () {
+      $('.teardown-buttons .toggle').show();
+      $('.teardown-buttons .teardown').show();
+      $('.teardown-buttons .initialize').hide();
+      ddm.menu($('.teardown-menu')).addToggles(
+        $('.teardown-menu .head'),
+        $('.teardown-buttons .toggle')
+      );
+    };
+
+    var teardownTeardownMenu = function () {
+      $('.teardown-buttons .toggle').hide();
+      $('.teardown-buttons .teardown').hide();
+      $('.teardown-buttons .initialize').show();
+      ddm.menu($('.teardown-menu')).teardown();
+    };
+
+    $('.teardown-buttons .teardown').on('click', teardownTeardownMenu);
+    $('.teardown-buttons .initialize').on('click', initializeTeardownMenu);
+    initializeTeardownMenu();
+  });
+  </script>
+
+  <script>
+  $('.dummy-content[data-fill]').each(function (index, element) {
+    var $element = $(element);
+    var fill = $element.data('fill');
+    for (var i = 0; i < fill; i++) {
+      $element.append('<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis.</p>');
+    }
+    if ($element.is('[data-fin]')) {
+      $element.append('<p><a href="http://i.imgur.com/0KlIArS.gif">Fin</a></p>');
+    }
+  });
+  </script>
+
+  <style>
+  /* decorative styles, irrelevant to menu */
+  *, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+
+  html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .header > .inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: #0b162f;
+    color: #fff;
+    width: 100%;
+    padding: 0 20px;
+    height: 40px;
+  }
+
+  .header > .reserved {
+    height: 40px;
+  }
+
+  .header h1 {
+    display: inline-block;
+    font-size: 2em;
+    margin: 0;
+    margin-left: 15px;
+    line-height: 40px;
+    white-space: nowrap;
+  }
+
+  .ddm-menu {
+    background-color: #333;
+    color: #fff;
+  }
+
+  .ddm-menu .head {
+    background-color: #0b162f;
+    padding: 0 20px;
+    line-height: 40px;
+    font-size: 2em;
+  }
+
+  .ddm-menu .body {
+    padding-bottom: 20px;
+  }
+
+  .ddm-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ddm-menu li {
+    padding: 10px 20px;
+    font-size: 1.5em;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+
+  .fa-ul {
+    position: relative;
+  }
+
+  .issues li i {
+    color: red;
+  }
+
+  .issues li i:before {
+    content: "\f00d"; /* .fa-times */
+    visibility: visible;
+  }
+
+  .issues li[x] {
+    text-decoration: line-through;
+  }
+
+  .issues li[x] i {
+    color: green;
+  }
+
+  .issues li[x] i:before {
+    content: "\f00c"; /* .fa-check */
+  }
+
+  .issues li[x='?'] {
+    text-decoration: none;
+  }
+
+  .issues li[x='?'] i:before {
+    content: "\f128"; /* fa-question */
+    color: blue;
+  }
+
+  .menu-right-toggle {
+    position: absolute;
+    right: 20px;
+    top: 7px;
+  }
+
+  .another-menu-left .head {
+    background-color: #2354ac;
+  }
+
+  .page-wrap {
+    max-width: 1280px;
+    padding: 0 20px;
+    margin: 0 auto;
+    overflow: visible;
+    position: static;
+  }
+  </style>
 
 </body>
 </html>
