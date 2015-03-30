@@ -86,11 +86,8 @@ ddm.menu = (function ($) {
     var $overlay = $('.ddm-menu-container__overlay');
     if ($overlay.length !== 0) { return; }
 
-    console.log('overlay not found');
-
     // create overlay
     $overlay = $('<div class="ddm-menu-container__overlay"></div>');
-    console.log($overlay.get(0));
     $overlay.prependTo('.ddm-menu-container');
 
     // events

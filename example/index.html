@@ -6,137 +6,18 @@
 
   <title>DDM Menu Prototype</title>
 
-  <!-- example page dependencies -->
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
   <!-- ddm-menu dependencies -->
   <script src="jquery.min.js"></script>
   <link href="menu.css" rel="stylesheet" />
   <script src="menu.js"></script>
 
+  <!-- example page dependencies -->
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="example.css" rel="stylesheet" />
+  <script src="example.js"></script>
 
-  <style>
-  /* decorative styles, irrelevant to menu */
-  *, *:before, *:after {
-    -webkit-box-sizing: inherit;
-    -moz-box-sizing: inherit;
-    box-sizing: inherit;
-  }
-
-  html {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  .ddm-menu-container--open-left .header > .inner {
-    left: 85%;
-  }
-
-  .ddm-menu-container--open-right .header > .inner {
-    left: -85%;
-  }
-
-  .ddm-menu-container__content {
-    padding: 0 15px;
-  }
-
-  .header > .inner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    background-color: #0b162f;
-    color: #fff;
-    width: 100%;
-    padding: 0 20px;
-    -webkit-transition: left .3s;
-    transition: left .3s;
-    height: 40px;
-  }
-
-  .header > .reserved {
-    height: 40px;
-  }
-
-  .header h1 {
-    display: inline-block;
-    width: auto;
-    font-size: 2em;
-    margin: 0;
-    margin-left: 20px;
-    line-height: 40px;
-  }
-
-  .my-menu {
-    background-color: #333;
-  }
-
-  .my-menu__inner {
-    color: #fff;
-    min-height: 100%;
-  }
-
-  .my-menu__head {
-    background-color: #0b162f;
-    padding: 0 20px;
-    line-height: 40px;
-    font-size: 2em;
-  }
-
-  .my-menu__body {
-    padding-bottom: 20px;
-  }
-
-  .my-menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .my-menu li {
-    padding: 10px 20px;
-    font-size: 1.5em;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-  }
-
-  .fa-ul {
-    position: relative;
-    z-index: -1;
-  }
-
-  .fa-check {
-    color: green;
-  }
-
-  .fa-times {
-    color: red;
-  }
-
-  .fa-question {
-    color: blue;
-  }
-
-  .menu-right-toggle {
-    position: absolute;
-    right: 20px;
-    top: 4px;
-  }
-
-  .fa-bars {
-    height: 32px;
-    width: 32px;
-    text-align: center;
-    line-height: 32px;
-  }
-  </style>
 </head>
 <body>
 
@@ -387,57 +268,5 @@
 
   </div>
 
-  <script>
-  // initialize left menu
-  $(function () {
-    var menu = ddm.menu($('#left-menu-example'));
-    menu.addToggles(
-      $('#left-menu-example .my-menu__head'),
-      $('#left-menu-example-toggle')
-    );
-  });
-
-  // initialize another left menu
-  $(function () {
-    var menu = ddm.menu($('#another-left-menu-example'));
-    menu.addToggles(
-      $('#another-left-menu-example .my-menu__head'),
-      $('#another-left-menu-example-toggle')
-    );
-  });
-
-  // initialize right menu
-  $(function () {
-    var menu = ddm.menu($('#right-menu-example'));
-    menu.addToggles(
-      $('#right-menu-example .my-menu__head'),
-      $('#right-menu-example-toggle')
-    );
-  });
-
-
-  // teardown menu
-  $(function () {
-    var initializeTeardownMenu = function () {
-      $('#teardown-menu-example-buttons .toggle').show()
-      $('#teardown-menu-example-buttons .teardown').show();
-      $('#teardown-menu-example-buttons .initialize').hide();
-      ddm.menu($('#teardown-menu-example')).addToggles(
-        $('#teardown-menu-example .my-menu__head'),
-        $('#teardown-menu-example-buttons .toggle')
-      );
-    };
-
-    var teardownTeardownMenu = function () {
-      $('#teardown-menu-example-buttons .toggle').hide();
-      $('#teardown-menu-example-buttons .teardown').hide();
-      $('#teardown-menu-example-buttons .initialize').show();
-      ddm.menu($('#teardown-menu-example')).teardown();
-    };
-    $('#teardown-menu-example-buttons .teardown').on('click', teardownTeardownMenu);
-    $('#teardown-menu-example-buttons .initialize').on('click', initializeTeardownMenu);
-    initializeTeardownMenu();
-  });
-  </script>
 </body>
 </html>
