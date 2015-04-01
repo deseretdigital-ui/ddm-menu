@@ -1,236 +1,190 @@
 var ddm = ddm || {};
 ddm.menu = (function ($) {
 
-  /*= helpers =*/
 
-  var helpers = {};
-  helpers.scrollCap = function ($element) {
-    var cap = function () {
-      var scrollTop = $element.scrollTop();
-      var minScrollTop = 0;
-      var maxScrollTop = $element.get(0).scrollHeight - $element.height() - 1;
-
-      if (scrollTop < minScrollTop) {
-        $element.scrollTop(minScrollTop);
-      } else if (scrollTop > maxScrollTop) {
-        $element.scrollTop(maxScrollTop);
+  // self documenting scroll helpers
+  var scroll = {
+    atTop: function (el, delta) {
+      delta = delta || 0;
+      return el.scrollTop + delta <= 0;
+    },
+    atBottom: function (el, delta) {
+      delta = delta || 0;
+      var currentScroll = el.scrollTop + el.offsetHeight;
+      return currentScroll + delta >= el.scrollHeight;
+    },
+    cap: function (el) {
+      if (this.atTop(el)) {
+        el.scrollTop = 1;
+      } else if (this.atBottom(el)) {
+        el.scrollTop = el.scrollTop - 1;
       }
-    };
+    },
+    kill: function (el, eventNamespace) {
+      var events = $.map([
+        'touchmove', 'wheel'
+      ], function (event) {
+        return event + '.scroll-kill' + eventNamespace;
+      }).join(' ');
 
-    $(function () {
-      $element.on('touchstart.ddm.scroll-cap', cap);
-      cap();
-    });
-  };
-
-  helpers.styleSupported = (function () {
-    var supported = [];
-
-    var check = function (property) {
-      var body = document.body || document.documentElement;
-      var style = body.style;
-
-      // check for standard
-      if (typeof style[property] == 'string') { return true; }
-
-      // check for vendor specific
-      var vendors = ['Moz', 'webkit', 'Webkit', 'Khtml', 'O', 'ms'];
-      property = property.charAt(0).toUpperCase() + property.substr(1);
-
-      for (var i = 0; i < vendors.length; i++) {
-        var vendorProperty = vendors[i];
-        if (typeof style[vendorProperty] == 'string') { return true; }
-      }
-
-      return false;
-    };
-
-    return function (property) {
-      if (supported[property] === undefined) {
-        supported[property] = check(property);
-      }
-      return supported[property];
-    };
-  })();
-
-  helpers.transitionEnd = function (namespace) {
-    return $.map([
-      'webkitTransitionEnd',
-      'otransitionend',
-      'oTransitionEnd',
-      'msTransitionEnd',
-      'transitionend'
-    ], function (event) {
-      return event + '.' + namespace;
-    }).join(' ');
-  };
-
-
-
-  /*= Container constructor =*/
-
-  var Container = function ($element) {
-
-    /* private */
-
-    var container = this;
-    $element.addClass('ddm-menu-container');
-    var $content = $element.find('.ddm-menu-container__content');
-
-    helpers.scrollCap($content);
-
-    (function ensureOverlay($element) {
-      var $inner = $element.find('.ddm-menu-container__inner');
-      var $overlay = $inner.find('.ddm-menu-container__overlay');
-      if ($overlay.length !== 0) { return; }
-      $overlay = $('<div class="ddm-menu-container__overlay"></div>');
-      $overlay.prependTo($inner);
-      $overlay.on('click', function (event) {
-        $('.ddm-menu--open').trigger('close.ddm.menu');
+      $(el).on(events, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
       });
-    })($element);
+    },
+    hasStuff: function (el) {
+      // is there stuff to scroll?
+      return el.offsetHeight < el.scrollHeight;
+    },
+    isolate: function (el, eventNamespace) {
+      var scroll = this;
+      var $element = $(el);
 
-    var lockScroll = function () {
-      $content.addClass('ddm-menu-container__content--scroll-lock');
-    };
+      // for mouse devices
+      $element.on('wheel.scroll-isolate' + eventNamespace, function (event) {
+        var el = this;
 
-    var unlockScroll = (function () {
-      var unlock = function () {
-        $content.removeClass('ddm-menu-container__content--scroll-lock');
-      };
+        // nothing to scroll
+        if (!scroll.hasStuff(el)) {
+          event.preventDefault();
+          return;
+        }
 
-      if (!helpers.styleSupported('transition')) { return unlock; }
+        // cap scroll if would leak to parent
+        var delta = parseInt(event.originalEvent.deltaY, 10);
+        var outOfBounds = scroll.atTop(el, delta) || scroll.atBottom(el, delta);
+        if (outOfBounds) {
+          scroll.cap(el);
+          return;
+        }
 
-      var transitionEnd = helpers.transitionEnd('ddm.menu.container');
-      return function () {
-        $element.on(transitionEnd, function (event) {
-          var isContainerInner = event.target === $element.find('.ddm-menu-container__inner').get(0);
-          if (!isContainerInner) { return; }
+        // everything else
+        event.stopImmediatePropagation();
+      });
 
-          unlock();
-          $element.off(transitionEnd);
-        });
-      };
+      // for touch devices
+      $element.on('touchstart.scroll-isolate' + eventNamespace, function(event) {
+        var el = this;
 
-    })();
+        // nothing to scroll
+        if (!scroll.hasStuff(el)) {
+          event.preventDefault();
+          return;
+        }
 
-
-
-    /* public */
-
-    this.open = function (openClass) {
-      $element.addClass(openClass);
-      lockScroll();
-    };
-
-    this.close = function (openClass) {
-      $element.removeClass(openClass);
-      unlockScroll();
-    };
-
+        // cap scroll prevents bounce on parents
+        scroll.cap(el);
+      });
+    }
   };
 
 
 
-  /*= Menu constructor =*/
+  $(function ensureOverlay() {
+
+    // check for existing overlay
+    var $overlay = $('.ddm-menu-container__overlay');
+    if ($overlay.length !== 0) { return; }
+
+    // create overlay
+    $overlay = $('<div class="ddm-menu-container__overlay"></div>');
+    $overlay.prependTo('.ddm-menu-container');
+
+    // events
+    scroll.kill($overlay.get(0), '.overlay.ddm-menu');
+
+    $overlay.on('click.overlay.ddm-menu', function (event) {
+      ddm.menu($('.ddm-menu--open')).close();
+    });
+
+    $(document).on('keydown', function (event) {
+      var ESC_KEY = 27;
+      if (event.keyCode === ESC_KEY) {
+        ddm.menu($('.ddm-menu--open')).close();
+      }
+    });
+
+  });
+
+
 
   var Menu = function ($element, $container) {
 
-    /* private */
-
     $element.addClass('ddm-menu');
-    var container = new Container($container);
     var menu = this;
-    var containerClass = $element.hasClass('ddm-menu--right')
-      ? 'ddm-menu-container--right-open'
-      : 'ddm-menu-container--open';
+    var containerClass = 'ddm-menu-container--open-left';
+    if ($element.hasClass('ddm-menu--right')) {
+      containerClass = 'ddm-menu-container--open-right';
+    }
     var toggles = [];
 
 
 
-    /* public */
+    /* public methods */
 
     this.isOpen = function () {
       return $element.hasClass('ddm-menu--open');
     };
 
     this.open = function () {
-      $element.trigger('ddm.menu.open');
+      $element.trigger('open.ddm-menu');
     };
 
     this.close = function () {
-      $element.trigger('close.ddm.menu');
+      $element.trigger('close.ddm-menu');
     };
 
     this.toggle = function () {
-      $element.trigger('toggle.ddm.menu');
+      $element.trigger('toggle.ddm-menu');
     };
 
     this.addToggles = function ($toggle1, $toggle2, $toggle3) {
       var args = Array.prototype.slice.apply(arguments);
       Array.prototype.push.apply(toggles, args);
       $.each(args, function (index, $toggle) {
-        $toggle.on('click.ddm.menu', function () {
+        $toggle.on('click.toggle.ddm-menu', function () {
           menu.toggle();
         });
       });
     };
 
     this.teardown = function () {
-      $element.trigger('teardown.ddm.menu');
+      $element.trigger('teardown.ddm-menu');
     };
 
 
 
     /*= events =*/
+    scroll.isolate($element.get(0));
 
-    helpers.scrollCap($element);
-
-    $element.on('open.ddm.menu', function () {
+    $element.on('open.ddm-menu', function () {
       $element.scrollTop(0);
       $element.addClass('ddm-menu--open');
-      container.open(containerClass);
+      $element.focus();
+      $container.addClass(containerClass);
     });
 
-    $element.on('close.ddm.menu', function () {
-      container.close(containerClass);
-
-      if (!helpers.styleSupported('transition')) {
-        $element.removeClass('ddm-menu--open');
-      }
-
-      var transitionEnd = helpers.transitionEnd('ddm.menu.containerClose');
-      $container.on(transitionEnd, function (event) {
-        var isContainerInner = event.target === $container.find('.ddm-menu-container__inner').get(0);
-        if (!isContainerInner) { return; }
-
-        $element.removeClass('ddm-menu--open');
-        $container.off(transitionEnd);
-      });
+    $element.on('close.ddm-menu', function () {
+      $container.removeClass(containerClass);
+      $element.removeClass('ddm-menu--open');
     });
 
-    $element.on('toggle.ddm.menu', function () {
+    $element.on('toggle.ddm-menu', function () {
       if (menu.isOpen()) {
-        $element.trigger('close.ddm.menu');
+        $element.trigger('close.ddm-menu');
       } else {
-        $element.trigger('open.ddm.menu');
+        $element.trigger('open.ddm-menu');
       }
     });
 
-    $element.on('click.ddm.menu', function (event) {
-      if (event.target === $element.get(0)) {
-        $element.trigger('close.ddm.menu');
-      }
-    });
-
-    $element.on('teardown.ddm.menu', function () {
+    $element.on('teardown.ddm-menu', function () {
       if (menu.isOpen()) {
-        $element.trigger('close.ddm.menu');
+        $element.trigger('close.ddm-menu');
       }
       $element.removeClass('ddm-menu ddm-menu--right');
-      $element.off('.ddm.menu');
+      $element.off('.ddm-menu');
       $.each(toggles, function (index, $toggle) {
-        $toggle.off('.ddm.menu');
+        $toggle.off('.ddm-menu');
       });
       $element.removeData('ddm-menu-api');
     });
@@ -238,8 +192,6 @@ ddm.menu = (function ($) {
   };
 
 
-
-  /*= menu function =*/
 
   var menu = function ($element) {
     $element = $element.eq(0); // only handles one menu at a time
@@ -251,6 +203,8 @@ ddm.menu = (function ($) {
     }
     return api;
   };
+
+
 
   return menu;
 

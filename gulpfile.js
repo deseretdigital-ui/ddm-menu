@@ -4,13 +4,20 @@ var del = require('del');
 
 
 
-gulp.task('default', ['example']);
+gulp.task('default', ['watch']);
 
 
 
-gulp.task('watch', ['default'], function() {
-  gulp.watch(['./src/**/*'], ['default']);
+gulp.task('watch', ['build'], function () {
+  gulp.watch([
+    './src/**/*',
+    './example/index.html'
+  ], ['build']);
 });
+
+
+
+gulp.task('build', ['example']);
 
 
 
