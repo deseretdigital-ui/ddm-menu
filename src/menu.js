@@ -32,7 +32,7 @@ ddm.menu = (function ($) {
         event.stopPropagation();
       });
     },
-    stuff: function (el) {
+    hasStuff: function (el) {
       // is there stuff to scroll?
       return el.offsetHeight < el.scrollHeight;
     },
@@ -45,7 +45,7 @@ ddm.menu = (function ($) {
         var el = this;
 
         // nothing to scroll
-        if (!scroll.stuff(el)) {
+        if (!scroll.hasStuff(el)) {
           event.preventDefault();
           return;
         }
@@ -67,7 +67,7 @@ ddm.menu = (function ($) {
         var el = this;
 
         // nothing to scroll
-        if (!scroll.stuff(el)) {
+        if (!scroll.hasStuff(el)) {
           event.preventDefault();
           return;
         }
