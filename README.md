@@ -80,6 +80,13 @@ Just add the `ddm-menu--right` modifier class to the menu element:
 </div>
 ```
 
+## Fastclick
+
+The example page uses [fastclick](https://github.com/ftlabs/fastclick) to remove
+click delay on mobile devices. It is not bundled with the menu code because we
+felt it is not appropriate for the ddm-menu to solve that problem globally. But
+we recommend considering installing fastclick in your applications.
+
 
 ## API
 
