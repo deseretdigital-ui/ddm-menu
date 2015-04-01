@@ -18,5 +18,8 @@
   ],
   "dependencies": {
     "jquery": ">=1.7 <2"
+  },
+  "devDependencies": {
+    "fastclick": "~1.0.6"
   }
 }
