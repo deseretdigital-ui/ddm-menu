@@ -2,389 +2,272 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
-  <title>KSL Assets Menu Demo</title>
-  <meta name="description" content="KSL Assets Menu Demo" />
+  <title>DDM Menu Prototype</title>
 
+  <!-- ddm-menu dependencies -->
   <script src="jquery.min.js"></script>
-
-  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
-  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-
   <link href="menu.css" rel="stylesheet" />
   <script src="menu.js"></script>
+
+  <!-- example page dependencies -->
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="example.css" rel="stylesheet" />
+  <script src="example.js"></script>
+  <script type='application/javascript' src='fastclick.js'></script>
 
 </head>
 <body>
 
   <div class="ddm-menu-container">
-    <div class="ddm-menu-container__inner">
 
-      <div class="header">
-        <div class="inner">
-          <i class="fa fa-bars fa-2x menu-left-toggle"></i>
-          <h1>Menu Demo</h1>
-          <i class="fa fa-bars fa-2x menu-right-toggle"></i>
+    <div class="header">
+      <div class="inner">
+        <i tabindex="0" id="left-menu-example-toggle" class="fa fa-bars fa-2x menu-left-toggle"></i>
+        <h1>Menu Demo</h1>
+        <i tabindex="0" id="right-menu-example-toggle" class="fa fa-bars fa-2x menu-right-toggle"></i>
+      </div>
+      <div class="reserved"></div>
+    </div>
+
+    <div class="ddm-menu-container__content">
+
+      <br />
+      <button id="another-left-menu-example-toggle">Another Menu</button>
+
+      <div id="left-menu-example" class="ddm-menu my-menu">
+        <div class="my-menu__inner">
+          <div class="my-menu__head">
+            Left Menu
+          </div>
+          <div class="my-menu__body">
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+              <li>Item 5</li>
+              <li>Item 6</li>
+              <li>Item 7</li>
+              <li>Item 8</li>
+              <li>Item 9</li>
+              <li>Item 10</li>
+              <li>Item 11</li>
+              <li>Item 12</li>
+              <li>Item 13</li>
+              <li>Item 14</li>
+              <li>Item 15</li>
+              <li>Item 16</li>
+              <li>Item 17</li>
+              <li>Item 18</li>
+              <li>Item 19</li>
+              <li>Item 20</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="ddm-menu-container__content">
-        <div class="page-wrap">
-
-          <div class="header">
-            <div class="reserved"></div>
+      <div id="another-left-menu-example" class="ddm-menu my-menu">
+        <div class="my-menu__inner">
+          <div class="my-menu__head">
+            Another Left Menu
           </div>
-
-          <div class="ddm-menu ddm-menu--left" id="anotherDemoMenuLeft">
-            <div class="ddm-menu__inner">
-              <div class="head">
-                Another Menu Left
-              </div>
-              <div class="body">
-                <ul>
-                  <li>Item 1</li>
-                  <li>Item 2</li>
-                  <li>Item 3</li>
-                  <li>Item 4</li>
-                  <li>Item 5</li>
-                  <li>Item 6</li>
-                  <li>Item 7</li>
-                  <li>Item 8</li>
-                  <li>Item 9</li>
-                  <li>Item 10</li>
-                  <li>Item 11</li>
-                  <li>Item 12</li>
-                  <li>Item 13</li>
-                  <li>Item 14</li>
-                  <li>Item 15</li>
-                  <li>Item 16</li>
-                  <li>Item 17</li>
-                  <li>Item 18</li>
-                  <li>Item 19</li>
-                  <li>Item 20</li>
-                </ul>
-              </div>
-            </div>
+          <div class="my-menu__body">
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+              <li>Item 5</li>
+              <li>Item 6</li>
+              <li>Item 7</li>
+              <li>Item 8</li>
+              <li>Item 9</li>
+              <li>Item 10</li>
+              <li>Item 11</li>
+              <li>Item 12</li>
+              <li>Item 13</li>
+              <li>Item 14</li>
+              <li>Item 15</li>
+              <li>Item 16</li>
+              <li>Item 17</li>
+              <li>Item 18</li>
+              <li>Item 19</li>
+              <li>Item 20</li>
+            </ul>
           </div>
+        </div>
+      </div>
 
-          <div class="ddm-menu ddm-menu--left" id="demoMenuLeft">
-            <div class="ddm-menu__inner">
-              <div class="head">
-                Menu Left
-              </div>
-              <div class="body">
-                <ul>
-                  <li>Item 1</li>
-                  <li>Item 2</li>
-                  <li>Item 3</li>
-                  <li>Item 4</li>
-                  <li>Item 5</li>
-                  <li>Item 6</li>
-                  <li>Item 7</li>
-                  <li>Item 8</li>
-                  <li>Item 9</li>
-                  <li>Item 10</li>
-                  <li>Item 11</li>
-                  <li>Item 12</li>
-                  <li>Item 13</li>
-                  <li>Item 14</li>
-                  <li>Item 15</li>
-                  <li>Item 16</li>
-                  <li>Item 17</li>
-                  <li>Item 18</li>
-                  <li>Item 19</li>
-                  <li>Item 20</li>
-                </ul>
-              </div>
-            </div>
+      <div id="right-menu-example" class="ddm-menu ddm-menu--right my-menu">
+        <div class="my-menu__inner">
+          <div class="my-menu__head">
+            Right Menu
           </div>
-
-          <div class="ddm-menu ddm-menu--right" id="demoMenuRight">
-            <div class="ddm-menu__inner">
-              <div class="head">
-                Right Menu
-              </div>
-              <div class="body">
-                <ul>
-                  <li>Item 1</li>
-                  <li>Item 2</li>
-                  <li>Item 3</li>
-                  <li>Item 4</li>
-                  <li>Item 5</li>
-                  <li>Item 6</li>
-                  <li>Item 7</li>
-                  <li>Item 8</li>
-                  <li>Item 9</li>
-                  <li>Item 10</li>
-                  <li>Item 11</li>
-                  <li>Item 12</li>
-                  <li>Item 13</li>
-                  <li>Item 14</li>
-                  <li>Item 15</li>
-                  <li>Item 16</li>
-                  <li>Item 17</li>
-                  <li>Item 18</li>
-                  <li>Item 19</li>
-                  <li>Item 20</li>
-                </ul>
-              </div>
-            </div>
+          <div class="my-menu__body">
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+              <li>Item 5</li>
+              <li>Item 6</li>
+              <li>Item 7</li>
+              <li>Item 8</li>
+              <li>Item 9</li>
+              <li>Item 10</li>
+            </ul>
           </div>
+        </div>
+      </div>
 
-          <p>
-            <br />
-            <button id="anotherDemoMenuLeftToggle">Another Menu</button>
-          </p>
+      <h3>Requirements</h3>
 
-          <h3>Menu Issues</h3>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-check"></i>Push the page over.</li>
+        <li><i class="fa-li fa fa-check"></i>Smooth (enough) animation.</li>
+        <li><i class="fa-li fa fa-check"></i>Disable vertical scrolling when open.</li>
+        <li><i class="fa-li fa fa-check"></i>Disable horizontal scrolling when open.</li>
+        <li><i class="fa-li fa fa-check"></i>Maintain page scroll position through opening and closing.</li>
+        <li><i class="fa-li fa fa-check"></i>Must play well with fixed position elements on screen.</li>
+        <li><i class="fa-li fa fa-check"></i>Reset scroll within the menu to top when opening a second time.</li>
+        <li><i class="fa-li fa fa-check"></i>Click outside to close (clicks should not trigger anything on the page, just close the menu).</li>
+        <li><i class="fa-li fa fa-check"></i>Menu scrolls independent of page.</li>
+        <li><i class="fa-li fa fa-check"></i>Smooth scrolling.</li>
+        <li><i class="fa-li fa fa-check"></i>Needs to be easy to pop back into page</li>
+        <li><i class="fa-li fa fa-check"></i>Option to position menu on the right</li>
+        <li><i class="fa-li fa fa-check"></i>Multiple menus on same page operate independently</li>
+        <li><i class="fa-li fa fa-check"></i>Option to teardown menu at any point</li>
+      </ul>
 
-          <ul class="fa-ul issues">
-            <li x="?"><i class="fa-li fa"></i>Mobile Safari: minimal-ui, used to hide address and tool bar, causes extra space at bottom of page in landscape mode. Workaround: scroll window up on page load, resize, and scroll. Doesn't eliminate extra space, but best workaround I could find. Good enough?</li>
-            <li x><i class="fa-li fa"></i>Mobile Safari: Address and tool bar in the way.</li>
-            <li x><i class="fa-li fa"></i>Mobile Safari: Landscape pushes page up.</li>
-            <li x><i class="fa-li fa"></i>IE8: Cannot scroll page after menu close.</li>
-            <li x><i class="fa-li fa"></i>IE10, IE8: Click outside to close not working.</li>
-            <li x><i class="fa-li fa"></i>Mobile Safari: Minor flicker. Verdict was "Good enough".</li>
-            <li x><i class="fa-li fa"></i>Mobile Safari: Elements disappear when scrolling. Caused by `-webkit-overflow-scrolling: auto`.</li>
-            <li x><i class="fa-li fa"></i>IE10, IE11: Reserved space for menu scroll bar between menu inner and rest of page rather than under the actual scroll bar.</li>
-            <li x><i class="fa-li fa"></i>Mobile Safari: White background showing when you scroll past top or bottom of menu.</li>
-            <li x><i class="fa-li fa"></i>Firefox: Css transition on page not working, while others on menu and header are. Odd.</li>
-            <li><i class="fa-li fa"></i>Android 2.3 (released in 2010): Unable to scroll menu.</li>
-          </ul>
+      <h3>Issues</h3>
 
-          <h3>Menu Requirements</h3>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-times"></i>Answer backward compatibility questions.</li>
+        <li><i class="fa-li fa fa-times"></i>Technical annoyance: Header, Menus, and content, as well as other fixed position elements, animated separately, rather than the animation being controlled on a single parent element.</li>
+        <li><i class="fa-li fa fa-times"></i>Android 2.3.5 Stock Browser: Menu not scrollable (But Android Firefox on Android works perfect; don't have a clue how to fix this without getting complicated (css-transform translate instead of overflow auto/hidden)).</li>
+        <li><i class="fa-li fa fa-check"></i><del>Mobile Safari: Address bar opens when the menu opens.</del></li>
+        <li><i class="fa-li fa fa-check"></i><del>Desktop Browsers (Firefox, Chrome, Safari, IE8): Page is scrollable.</del></li>
+        <li><i class="fa-li fa fa-check"></i><del>Mobile Safari: Scroll bounce on page after scrolling past end of menu.</del></li>
+        <li><i class="fa-li fa fa-check"></i><del>Background color on menu doesn't extend into overscroll area.</del></li>
+        <li><i class="fa-li fa fa-check"></i><del>Scrollbar detached from menu.</del></li>
+        <li><i class="fa-li fa fa-check"></i><del>Overlay on menu open to catch clicks.</del></li>
+        <li><i class="fa-li fa fa-check"></i><del>Public interface doesn't match current ddm-menu version (function call, event names, methods, namespaces).</del></li>
+      </ul>
 
-          <ul class="fa-ul issues">
-            <li x><i class="fa-li fa"></i>Push the page over.</li>
-            <li x><i class="fa-li fa"></i>Smooth animation.</li>
-            <li x><i class="fa-li fa"></i>Disable vertical page scrolling when menu open.</li>
-            <li x><i class="fa-li fa"></i>Disable horizontal page scrolling when menu open.</li>
-            <li x><i class="fa-li fa"></i>Maintain page scroll position through opening and closing.</li>
-            <li x><i class="fa-li fa"></i>Must play well with fixed position elements on screen.</li>
-            <li x><i class="fa-li fa"></i>Reset scroll within the menu to top when opening a second time.</li>
-            <li x><i class="fa-li fa"></i>Click outside to close (clicks should not trigger anything on the page, just close the menu).</li>
-            <li x><i class="fa-li fa"></i>Menu scrolls independent of page.</li>
-            <li x><i class="fa-li fa"></i>Smooth scrolling.</li>
-            <li x><i class="fa-li fa"></i>Needs to be easy to pop back into page layout.</li>
-            <li x><i class="fa-li fa"></i>Content should not get smooshed when menu is open.</li>
-            <li x><i class="fa-li fa"></i>Right menu using modifier class.</li>
-            <li x="?"><i class="fa-li fa"></i>Must meet requirements in Firefox, Chrome, Safari, Mobile Safari, IE10, IE11, Android.</li>
-          </ul>
+      <h3>Tested Browsers</h3>
 
-          <div class="teardown-buttons">
-            <button class="toggle">Open Teardown Menu</button>
-            <button class="initialize">Initialize</button>
-            <button class="teardown">Teardown</button>
+      <h4>Desktop</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-check"></i>Safari</li>
+        <li><i class="fa-li fa fa-check"></i>Chrome</li>
+        <li><i class="fa-li fa fa-check"></i>Firefox</li>
+        <li><i class="fa-li fa fa-check"></i>IE8, Windows XP</li>
+        <li><i class="fa-li fa fa-check"></i>IE11</li>
+      </ul>
+      <h4>iPhone 6 Plus</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-check"></i>Safari</li>
+        <li><i class="fa-li fa fa-check"></i>Chrome</li>
+      </ul>
+      <h4>Windows Mobile 8.1</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-times"></i>Stock</li>
+      </ul>
+      <h4>Android 2.3.5</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-times"></i>Stock</li>
+        <li><i class="fa-li fa fa-times"></i>Firefox</li>
+      </ul>
+      <h4>Android 5.0.1</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-times"></i>Chrome</li>
+      </ul>
+      <h4>iPhone 4s</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-times"></i>Safari</li>
+      </ul>
+      <h4>Android 4.0</h4>
+      <ul class="fa-ul">
+        <li><i class="fa-li fa fa-times"></i>Stock</li>
+      </ul>
+
+      <h3>Teardown Menu</h3>
+
+      <p>DDM Menu has a teardown method that removes all ddm-menu styling and functionality.</p>
+
+      <div id="teardown-menu-example-buttons">
+        <button class="toggle">Open Teardown Menu</button>
+        <button class="initialize">Initialize</button>
+        <button class="teardown">Teardown</button>
+      </div>
+
+      <div id="teardown-menu-example" class="ddm-menu my-menu">
+        <div class="my-menu__inner">
+          <div class="my-menu__head">
+            Teardown Menu
           </div>
-
-          <div class="teardown-menu">
-            <div class="inner">
-              <div class="head">
-                Teardown Menu
-              </div>
-              <div class="body">
-                <ul>
-                  <li>Item 1</li>
-                  <li>Item 2</li>
-                  <li>Item 3</li>
-                  <li>Item 4</li>
-                  <li>Item 5</li>
-                  <li>Item 6</li>
-                  <li>Item 7</li>
-                </ul>
-              </div>
-            </div>
+          <div class="my-menu__body">
+            <ul>
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+              <li>Item 4</li>
+              <li>Item 5</li>
+              <li>Item 6</li>
+              <li>Item 7</li>
+              <li>Item 8</li>
+              <li>Item 9</li>
+              <li>Item 10</li>
+              <li>Item 11</li>
+              <li>Item 12</li>
+              <li>Item 13</li>
+              <li>Item 14</li>
+              <li>Item 15</li>
+              <li>Item 16</li>
+              <li>Item 17</li>
+              <li>Item 18</li>
+              <li>Item 19</li>
+              <li>Item 20</li>
+            </ul>
           </div>
+        </div>
+      </div>
 
-          <div class="dummy-content" data-fill="6" data-fin></div>
+      <h3>Dummy Content</h3>
 
-        </div><!-- /.page-wrap -->
-      </div><!-- /.content -->
-    </div><!-- /.inner -->
-  </div><!-- /.container -->
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis
+      </p>
 
-  <script>
-  $(function () {
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis
+      </p>
 
-    ddm.menu($('#demoMenuLeft')).addToggles(
-      $('#demoMenuLeft .head'),
-      $('.header .menu-left-toggle')
-    );
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis
+      </p>
 
-    ddm.menu($('#demoMenuRight')).addToggles(
-      $('#demoMenuRight .head'),
-      $('.header .menu-right-toggle')
-    );
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis
+      </p>
 
-    ddm.menu($('#anotherDemoMenuLeft')).addToggles(
-      $('#anotherDemoMenuLeft .head'),
-      $('#anotherDemoMenuLeftToggle')
-    );
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis
+      </p>
 
-    var initializeTeardownMenu = function () {
-      $('.teardown-buttons .toggle').show();
-      $('.teardown-buttons .teardown').show();
-      $('.teardown-buttons .initialize').hide();
-      ddm.menu($('.teardown-menu')).addToggles(
-        $('.teardown-menu .head'),
-        $('.teardown-buttons .toggle')
-      );
-    };
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis
+      </p>
 
-    var teardownTeardownMenu = function () {
-      $('.teardown-buttons .toggle').hide();
-      $('.teardown-buttons .teardown').hide();
-      $('.teardown-buttons .initialize').show();
-      ddm.menu($('.teardown-menu')).teardown();
-    };
+      <p>Fin</p>
 
-    $('.teardown-buttons .teardown').on('click', teardownTeardownMenu);
-    $('.teardown-buttons .initialize').on('click', initializeTeardownMenu);
-    initializeTeardownMenu();
-  });
-  </script>
+    </div>
 
-  <script>
-  $('.dummy-content[data-fill]').each(function (index, element) {
-    var $element = $(element);
-    var fill = $element.data('fill');
-    for (var i = 0; i < fill; i++) {
-      $element.append('<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus congue porta felis non fringilla. Etiam nisl turpis, volutpat ut ipsum id, semper ornare velit. Aliquam non lectus rhoncus, laoreet nisl eget, elementum nisi. Nullam diam ligula, faucibus quis orci rhoncus, blandit facilisis odio. Curabitur iaculis convallis felis ut iaculis. Etiam ut orci ullamcorper ligula elementum elementum vel at odio. Pellentesque feugiat lorem leo, non interdum nisl tristique nec. Suspendisse iaculis urna non convallis.</p>');
-    }
-    if ($element.is('[data-fin]')) {
-      $element.append('<p><a href="http://i.imgur.com/0KlIArS.gif">Fin</a></p>');
-    }
-  });
-  </script>
-
-  <style>
-  /* decorative styles, irrelevant to menu */
-  *, *:before, *:after {
-    -webkit-box-sizing: inherit;
-    -moz-box-sizing: inherit;
-    box-sizing: inherit;
-  }
-
-  html {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  .header > .inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    background-color: #0b162f;
-    color: #fff;
-    width: 100%;
-    padding: 0 20px;
-    height: 40px;
-  }
-
-  .header > .reserved {
-    height: 40px;
-  }
-
-  .header h1 {
-    display: inline-block;
-    font-size: 2em;
-    margin: 0;
-    margin-left: 15px;
-    line-height: 40px;
-    white-space: nowrap;
-  }
-
-  .ddm-menu {
-    background-color: #333;
-    color: #fff;
-  }
-
-  .ddm-menu .head {
-    background-color: #0b162f;
-    padding: 0 20px;
-    line-height: 40px;
-    font-size: 2em;
-  }
-
-  .ddm-menu .body {
-    padding-bottom: 20px;
-  }
-
-  .ddm-menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .ddm-menu li {
-    padding: 10px 20px;
-    font-size: 1.5em;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-  }
-
-  .fa-ul {
-    position: relative;
-  }
-
-  .issues li i {
-    color: red;
-  }
-
-  .issues li i:before {
-    content: "\f00d"; /* .fa-times */
-    visibility: visible;
-  }
-
-  .issues li[x] {
-    text-decoration: line-through;
-  }
-
-  .issues li[x] i {
-    color: green;
-  }
-
-  .issues li[x] i:before {
-    content: "\f00c"; /* .fa-check */
-  }
-
-  .issues li[x='?'] {
-    text-decoration: none;
-  }
-
-  .issues li[x='?'] i:before {
-    content: "\f128"; /* fa-question */
-    color: blue;
-  }
-
-  .menu-right-toggle {
-    position: absolute;
-    right: 20px;
-    top: 7px;
-  }
-
-  .another-menu-left .head {
-    background-color: #2354ac;
-  }
-
-  .page-wrap {
-    max-width: 1280px;
-    padding: 0 20px;
-    margin: 0 auto;
-    overflow: visible;
-    position: static;
-  }
-  </style>
+  </div>
 
 </body>
 </html>
