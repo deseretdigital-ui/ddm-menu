@@ -94,7 +94,14 @@ ddm.menu = (function ($) {
     scroll.kill($overlay.get(0), '.overlay.ddm-menu');
 
     $overlay.on('click.overlay.ddm-menu', function (event) {
-      $('.ddm-menu--open').trigger('close.ddm-menu');
+      ddm.menu($('.ddm-menu--open')).close();
+    });
+
+    $(document).on('keydown', function (event) {
+      var ESC_KEY = 27;
+      if (event.keyCode === ESC_KEY) {
+        ddm.menu($('.ddm-menu--open')).close();
+      }
     });
 
   });
@@ -153,6 +160,7 @@ ddm.menu = (function ($) {
     $element.on('open.ddm-menu', function () {
       $element.scrollTop(0);
       $element.addClass('ddm-menu--open');
+      $element.focus();
       $container.addClass(containerClass);
     });
 
