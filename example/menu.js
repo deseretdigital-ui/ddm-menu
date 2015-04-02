@@ -63,7 +63,7 @@ ddm.menu = (function ($) {
       });
 
       // for touch devices
-      $element.on('touchstart.scroll-isolate' + eventNamespace, function(event) {
+      $element.on('touchmove.scroll-isolate' + eventNamespace, function(event) {
         var el = this;
 
         // nothing to scroll
