@@ -25,8 +25,10 @@ gulp.task('example', function () {
   gulp.src('./src/menu.*')
     .pipe(gulp.dest('./example'));
 
-  return gulp.src('./bower_components/jquery/dist/jquery.min.js')
-    .pipe(gulp.dest('./example'));
+  return gulp.src([
+    './bower_components/jquery/dist/jquery.min.js',
+    './bower_components/fastclick/lib/fastclick.js'
+  ]).pipe(gulp.dest('./example'));
 });
 
 
