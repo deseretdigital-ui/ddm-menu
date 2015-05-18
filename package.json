@@ -1,6 +1,14 @@
 {
   "name": "ddm-menu",
+  "version": "1.0.1",
+  "scripts": {
+    "init": "npm install; bower install",
+    "build": "npm run init; gulp build",
+    "watch": "npm run init; gulp watch",
+    "publish": "npm run build; gulp ghpages"
+  },
   "devDependencies": {
+    "bower": "^1.4.1",
     "del": "^0.1.3",
     "gulp": "^3.8.9",
     "gulp-gh-pages": "^0.4.0",
