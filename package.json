@@ -1,7 +1,7 @@
 {
   "name": "ddm-menu",
   "description": "Creates an offscreen menu. See the [example](http://ui.deseretdigital.com/ddm-menu/) for working examples.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "private": true,
   "main": "src/menu.js",
