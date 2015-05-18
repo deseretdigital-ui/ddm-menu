@@ -1,9 +1,33 @@
 {
   "name": "ddm-menu",
+  "description": "Creates an offscreen menu. See the [example](http://ui.deseretdigital.com/ddm-menu/) for working examples.",
+  "version": "1.0.2",
+  "license": "MIT",
+  "private": true,
+  "main": "src/menu.js",
+  "scripts": {
+    "init": "npm install; bower install",
+    "build": "npm run init; gulp build",
+    "watch": "npm run init; gulp watch",
+    "publish": "npm run build; gulp ghpages"
+  },
   "devDependencies": {
+    "bower": "^1.4.1",
     "del": "^0.1.3",
     "gulp": "^3.8.9",
     "gulp-gh-pages": "^0.4.0",
     "gulp-load-plugins": "^0.7.0"
-  }
+  },
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deseretdigital-ui/ddm-menu.git"
+  },
+  "author": "Joshua Stoutenburg <jehoshua02@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/deseretdigital-ui/ddm-menu/issues"
+  },
+  "homepage": "https://github.com/deseretdigital-ui/ddm-menu"
 }
