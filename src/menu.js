@@ -153,6 +153,19 @@ ddm.menu = (function ($) {
     };
 
 
+    var hack = {
+      do: function () {
+        console.log('hack.do');
+        $(document).trigger('resize');
+        $('body').addClass('ddm-menu-scroll-hack');
+      },
+      undo: function () {
+        console.log('hack.undo');
+        $('body').removeClass('ddm-menu-scroll-hack');
+      }
+    };
+
+
 
     /*= events =*/
     scroll.isolate($element.get(0));
@@ -162,11 +175,13 @@ ddm.menu = (function ($) {
       $element.addClass('ddm-menu--open');
       $element.focus();
       $container.addClass(containerClass);
+      hack.do();
     });
 
     $element.on('close.ddm-menu', function () {
       $container.removeClass(containerClass);
       $element.removeClass('ddm-menu--open');
+      hack.undo();
     });
 
     $element.on('toggle.ddm-menu', function () {
