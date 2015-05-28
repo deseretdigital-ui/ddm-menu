@@ -69,11 +69,3 @@
   display: block;
   left: 0;
 }
-
-/*body*/.ddm-menu-scroll-hack {
-  margin: 0 100% 0 0;
-}
-
-/*body*/.ddm-menu-scroll-hack .ddm-menu-container__content {
-  position: fixed;
-}
