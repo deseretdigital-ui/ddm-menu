@@ -153,7 +153,6 @@ ddm.menu = (function ($) {
     };
 
 
-
     /*= events =*/
     scroll.isolate($element.get(0));
 

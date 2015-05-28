@@ -6,18 +6,17 @@
 
 .ddm-menu-container__content {
   width: 100%;
-  position: relative;
-  left: 0;
-  -webkit-transition: left 0.3s;
-  transition: left 0.3s;
+  margin-left: 0;
+  -webkit-transition: margin-left 0.3s;
+  transition: margin-left 0.3s;
 }
 
 .ddm-menu-container--open-left .ddm-menu-container__content {
-  left: 85%;
+  margin-left: 85%;
 }
 
 .ddm-menu-container--open-right .ddm-menu-container__content {
-  left: -85%;
+  margin-left: -85%;
 }
 
 .ddm-menu {
@@ -69,3 +68,4 @@
   display: block;
   left: 0;
 }
+
