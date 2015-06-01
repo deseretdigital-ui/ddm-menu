@@ -1,7 +1,6 @@
 var ddm = ddm || {};
 ddm.menu = (function ($) {
 
-
   // self documenting scroll helpers
   var scroll = {
     atTop: function (el, delta) {
@@ -119,6 +118,43 @@ ddm.menu = (function ($) {
     var toggles = [];
 
 
+    // Android 4.0.4 Content Scroll Hack
+    //
+    // For some reason, content extends beyond scrollable area when content is
+    // added dynamically to the page due to the menu having `position: fixed`.
+    // We don't really understand it. But we've proven that `position: fixed` is
+    // the problem by process of elimination (removing styles until the issue
+    // disappears). So our hackish workaround is to toggle `position: fixed`
+    // rule when the content height changes. Instead of requiring ddm-menu users
+    // to call another method for this silly issue, we use an interval to
+    // monitor content height.
+
+    var androidContentScrollHack = {
+      _interval: null,
+      _contentHeight: null,
+
+      enable: function () {
+        this._interval = setInterval(function () {
+          var contentHeight = $('.ddm-menu-container__content').outerHeight(true);
+          var change = contentHeight !== this._contentHeight;
+          if (change) {
+            $element.removeClass('ddm-menu--android-content-scroll-hack');
+            setTimeout(function () {
+              $element.addClass('ddm-menu--android-content-scroll-hack');
+            }, 0);
+            this._contentHeight = contentHeight;
+          }
+        }, 1000);
+      },
+
+      disable: function () {
+        clearInterval(this._interval);
+        this._interval = null;
+      }
+    };
+
+    androidContentScrollHack.enable();
+
 
     /* public methods */
 
@@ -186,6 +222,7 @@ ddm.menu = (function ($) {
         $toggle.off('.ddm-menu');
       });
       $element.removeData('ddm-menu-api');
+      androidContentScrollHack.disable();
     });
 
   };
