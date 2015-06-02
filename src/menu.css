@@ -81,7 +81,7 @@
  * to call another method for this silly issue, we use an interval to
  * monitor content height.
  */
-.ddm-menu--android-content-scroll-hack {
+/*body*/.ddm-menu-android-content-scroll-hack .ddm-menu {
   position: static;
   display: none;
 }

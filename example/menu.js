@@ -106,52 +106,55 @@ ddm.menu = (function ($) {
   });
 
 
+  // Android 4.0.4 Content Scroll Hack
+  //
+  // For some reason, content extends beyond scrollable area when content is
+  // added dynamically to the page due to the menu having `position: fixed`.
+  // We don't really understand it. But we've proven that `position: fixed` is
+  // the problem by process of elimination (removing styles until the issue
+  // disappears). So our hackish workaround is to toggle `position: fixed`
+  // rule when the content height changes. Instead of requiring ddm-menu users
+  // to call another method for this silly issue, we use an interval to
+  // monitor content height.
+
+  var androidContentScrollHack = {
+    _interval: null,
+    _documentHeight: null,
+
+    enable: function () {
+      if (this._interval !== null) { return; }
+
+      this._interval = setInterval(function () {
+        var documentHeight = $(document).height();
+        var change = documentHeight !== this._documentHeight;
+
+        if (change) {
+          $('body').addClass('ddm-menu-android-content-scroll-hack');
+          setTimeout(function () {
+            $('body').removeClass('ddm-menu-android-content-scroll-hack');
+          }, 10);
+          this._documentHeight = documentHeight;
+        }
+      }.bind(this), 1000);
+    },
+
+    disable: function () {
+      clearInterval(this._interval);
+      this._interval = null;
+    }
+  };
+
 
   var Menu = function ($element, $container) {
 
     $element.addClass('ddm-menu');
+
     var menu = this;
     var containerClass = 'ddm-menu-container--open-left';
     if ($element.hasClass('ddm-menu--right')) {
       containerClass = 'ddm-menu-container--open-right';
     }
     var toggles = [];
-
-
-    // Android 4.0.4 Content Scroll Hack
-    //
-    // For some reason, content extends beyond scrollable area when content is
-    // added dynamically to the page due to the menu having `position: fixed`.
-    // We don't really understand it. But we've proven that `position: fixed` is
-    // the problem by process of elimination (removing styles until the issue
-    // disappears). So our hackish workaround is to toggle `position: fixed`
-    // rule when the content height changes. Instead of requiring ddm-menu users
-    // to call another method for this silly issue, we use an interval to
-    // monitor content height.
-
-    var androidContentScrollHack = {
-      _interval: null,
-      _contentHeight: null,
-
-      enable: function () {
-        this._interval = setInterval(function () {
-          var contentHeight = $('.ddm-menu-container__content').outerHeight(true);
-          var change = contentHeight !== this._contentHeight;
-          if (change) {
-            $element.removeClass('ddm-menu--android-content-scroll-hack');
-            setTimeout(function () {
-              $element.addClass('ddm-menu--android-content-scroll-hack');
-            }, 0);
-            this._contentHeight = contentHeight;
-          }
-        }, 1000);
-      },
-
-      disable: function () {
-        clearInterval(this._interval);
-        this._interval = null;
-      }
-    };
 
     androidContentScrollHack.enable();
 
