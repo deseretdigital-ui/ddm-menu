@@ -1,7 +1,6 @@
 var ddm = ddm || {};
 ddm.menu = (function ($) {
 
-
   // self documenting scroll helpers
   var scroll = {
     atTop: function (el, delta) {
@@ -107,17 +106,85 @@ ddm.menu = (function ($) {
   });
 
 
+  // Android 4.0.4 Content Scroll Hack
+  //
+  // For some reason, content extends beyond scrollable area when content is
+  // added dynamically to the page due to the menu having `position: fixed`.
+  // We don't really understand it. But we've proven that `position: fixed` is
+  // the problem by process of elimination (removing styles until the issue
+  // disappears). So our hackish workaround is to toggle `position: fixed`
+  // rule when the content height changes. Instead of requiring ddm-menu users
+  // to call another method for this silly issue, we use an interval to
+  // monitor content height.
+
+  var androidContentScrollHack = {
+    _interval: null,
+    _documentHeight: null,
+    _browserMatch: null,
+
+    enable: function () {
+      if (!this._isBrowserMatch() || this._interval !== null) { return; }
+
+      this._interval = setInterval(function () {
+        var documentHeight = $(document).height();
+        var change = documentHeight !== this._documentHeight;
+
+        if (change) {
+          $('body').addClass('ddm-menu-android-content-scroll-hack');
+          setTimeout(function () {
+            $('body').removeClass('ddm-menu-android-content-scroll-hack');
+          }, 10);
+          this._documentHeight = documentHeight;
+        }
+      }.bind(this), 300);
+    },
+
+    disable: function () {
+      if (this._interval === null) { return; }
+      clearInterval(this._interval);
+      this._interval = null;
+    },
+
+    _isBrowserMatch: function () {
+      if (this._browserMatch !== null) {
+        return this._browserMatch;
+      }
+
+      var uaPatterns = [
+        /android 4.0.4/
+      ];
+
+      var match = false;
+      var ua = navigator.userAgent.toLowerCase();
+      for (var key in uaPatterns) {
+        if (uaPatterns[key].test(ua)) {
+          match = true;
+          break;
+        }
+      }
+
+      this._browserMatch = match;
+    }
+  };
+
 
   var Menu = function ($element, $container) {
 
-    $element.addClass('ddm-menu');
+    // private variables
+    var toggles = [];
     var menu = this;
+
+    // ensure menu has ddm-menu class
+    $element.addClass('ddm-menu');
+
+    // determine container "open" class
     var containerClass = 'ddm-menu-container--open-left';
     if ($element.hasClass('ddm-menu--right')) {
       containerClass = 'ddm-menu-container--open-right';
     }
-    var toggles = [];
 
+    // enable content scroll hack
+    androidContentScrollHack.enable();
 
 
     /* public methods */
@@ -186,6 +253,7 @@ ddm.menu = (function ($) {
         $toggle.off('.ddm-menu');
       });
       $element.removeData('ddm-menu-api');
+      androidContentScrollHack.disable();
     });
 
   };
