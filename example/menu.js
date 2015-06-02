@@ -146,7 +146,6 @@ ddm.menu = (function ($) {
     },
 
     _isBrowserMatch: function () {
-      console.log('_isBrowserMatch');
       if (this._browserMatch !== null) {
         return this._browserMatch;
       }
