@@ -120,9 +120,10 @@ ddm.menu = (function ($) {
   var androidContentScrollHack = {
     _interval: null,
     _documentHeight: null,
+    _browserMatch: null,
 
     enable: function () {
-      if (this._interval !== null) { return; }
+      if (!this._isBrowserMatch() || this._interval !== null) { return; }
 
       this._interval = setInterval(function () {
         var documentHeight = $(document).height();
@@ -139,23 +140,51 @@ ddm.menu = (function ($) {
     },
 
     disable: function () {
+      if (this._interval === null) { return; }
       clearInterval(this._interval);
       this._interval = null;
+    },
+
+    _isBrowserMatch: function () {
+      console.log('_isBrowserMatch');
+      if (this._browserMatch !== null) {
+        return this._browserMatch;
+      }
+
+      var uaPatterns = [
+        /android 4.0.4/
+      ];
+
+      var match = false;
+      var ua = navigator.userAgent.toLowerCase();
+      for (var key in uaPatterns) {
+        if (uaPatterns[key].test(ua)) {
+          match = true;
+          break;
+        }
+      }
+
+      this._browserMatch = match;
     }
   };
 
 
   var Menu = function ($element, $container) {
 
+    // private variables
+    var toggles = [];
+    var menu = this;
+
+    // ensure menu has ddm-menu class
     $element.addClass('ddm-menu');
 
-    var menu = this;
+    // determine container "open" class
     var containerClass = 'ddm-menu-container--open-left';
     if ($element.hasClass('ddm-menu--right')) {
       containerClass = 'ddm-menu-container--open-right';
     }
-    var toggles = [];
 
+    // enable content scroll hack
     androidContentScrollHack.enable();
 
 
