@@ -135,7 +135,7 @@ ddm.menu = (function ($) {
           }, 10);
           this._documentHeight = documentHeight;
         }
-      }.bind(this), 1000);
+      }.bind(this), 300);
     },
 
     disable: function () {
