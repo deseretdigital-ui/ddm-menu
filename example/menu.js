@@ -117,6 +117,17 @@ ddm.menu = (function ($) {
   // to call another method for this silly issue, we use an interval to
   // monitor content height.
 
+  // really simple memoize
+  var memoize = function (func) {
+    var value;
+    return function () {
+      if (value === undefined) {
+        value = func();
+      }
+      return value;
+    };
+  };
+
   var androidContentScrollHack = {
     _interval: null,
     _documentHeight: null,
@@ -145,16 +156,13 @@ ddm.menu = (function ($) {
       this._interval = null;
     },
 
-    _isBrowserMatch: function () {
-      if (this._browserMatch !== null) {
-        return this._browserMatch;
-      }
+    _isBrowserMatch: memoize(function () {
+      var match = false;
 
       var uaPatterns = [
         /android 4.0.4/
       ];
 
-      var match = false;
       var ua = navigator.userAgent.toLowerCase();
       for (var key in uaPatterns) {
         if (uaPatterns[key].test(ua)) {
@@ -163,8 +171,8 @@ ddm.menu = (function ($) {
         }
       }
 
-      this._browserMatch = match;
-    }
+      return match;
+    })
   };
 
 
