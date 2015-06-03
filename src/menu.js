@@ -131,7 +131,6 @@ ddm.menu = (function ($) {
   var androidContentScrollHack = {
     _interval: null,
     _documentHeight: null,
-    _browserMatch: null,
 
     enable: function () {
       if (!this._isBrowserMatch() || this._interval !== null) { return; }
