@@ -167,7 +167,7 @@ ddm.menu = (function ($) {
       ];
 
       var ua = navigator.userAgent.toLowerCase();
-      for (var key in uaPatterns) {
+      for (var key = 0; key < uaPatterns.length; key++) {
         if (uaPatterns[key].test(ua)) {
           match = true;
           break;

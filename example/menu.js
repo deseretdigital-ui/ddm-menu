@@ -42,9 +42,11 @@ ddm.menu = (function ($) {
       // for mouse devices
       $element.on('wheel.scroll-isolate' + eventNamespace, function (event) {
         var el = this;
+        var allowScrollObject = $(event.target).closest('.allowScroll');
+        var allowScroll = (allowScrollObject && allowScrollObject.length) ? true  : false;
 
         // nothing to scroll
-        if (!scroll.hasStuff(el)) {
+        if (!allowScroll && !scroll.hasStuff(el)) {
           event.preventDefault();
           return;
         }
@@ -64,9 +66,11 @@ ddm.menu = (function ($) {
       // for touch devices
       $element.on('touchmove.scroll-isolate' + eventNamespace, function(event) {
         var el = this;
+        var allowScrollObject = $(event.target).closest('.allowScroll');
+        var allowScroll = (allowScrollObject && allowScrollObject.length) ? true  : false;
 
         // nothing to scroll
-        if (!scroll.hasStuff(el)) {
+        if (!allowScroll && !scroll.hasStuff(el)) {
           event.preventDefault();
           return;
         }
@@ -163,7 +167,7 @@ ddm.menu = (function ($) {
       ];
 
       var ua = navigator.userAgent.toLowerCase();
-      for (var key in uaPatterns) {
+      for (var key = 0; key < uaPatterns.length; key++) {
         if (uaPatterns[key].test(ua)) {
           match = true;
           break;
