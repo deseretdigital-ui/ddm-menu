@@ -287,3 +287,9 @@ ddm.menu = (function ($) {
   return menu;
 
 })(jQuery);
+
+// Allows webpack projects to easily import this bundle
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = ddm.menu;
+}
+
