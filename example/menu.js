@@ -4,12 +4,12 @@ ddm.menu = (function ($) {
   var bodyScrollTop;
 
   function setBodyUnscrollable(lockScroll) {
-    var $body = $('body');
+    var $container = $('.ddm-menu-container');
     if (lockScroll) {
       bodyScrollTop = document.body.scrollTop;
-      $body.addClass('ddm-menu-scroll-lock').css('top', -bodyScrollTop + 'px');
+      $container.addClass('ddm-menu-scroll-lock').css('top', -bodyScrollTop + 'px');
     } else {
-      $body.removeClass('ddm-menu-scroll-lock').css('top', '');
+      $container.removeClass('ddm-menu-scroll-lock').css('top', '');
       document.body.scrollTop = bodyScrollTop;
     }
   }
