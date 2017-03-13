@@ -1,87 +1,18 @@
 var ddm = ddm || {};
 ddm.menu = (function ($) {
 
-  // self documenting scroll helpers
-  var scroll = {
-    atTop: function (el, delta) {
-      delta = delta || 0;
-      return el.scrollTop + delta <= 0;
-    },
-    atBottom: function (el, delta) {
-      delta = delta || 0;
-      var currentScroll = el.scrollTop + el.offsetHeight;
-      return currentScroll + delta >= el.scrollHeight;
-    },
-    cap: function (el) {
-      if (this.atTop(el)) {
-        el.scrollTop = 1;
-      } else if (this.atBottom(el)) {
-        el.scrollTop = el.scrollTop - 1;
-      }
-    },
-    kill: function (el, eventNamespace) {
-      var events = $.map([
-        'touchmove', 'wheel'
-      ], function (event) {
-        return event + '.scroll-kill' + eventNamespace;
-      }).join(' ');
+  var bodyScrollTop;
 
-      $(el).on(events, function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      });
-    },
-    hasStuff: function (el) {
-      // is there stuff to scroll?
-      return el.offsetHeight < el.scrollHeight;
-    },
-    isolate: function (el, eventNamespace) {
-      var scroll = this;
-      var $element = $(el);
-
-      // for mouse devices
-      $element.on('wheel.scroll-isolate' + eventNamespace, function (event) {
-        var el = this;
-        var allowScrollObject = $(event.target).closest('.allowScroll');
-        var allowScroll = (allowScrollObject && allowScrollObject.length) ? true  : false;
-
-        // nothing to scroll
-        if (!allowScroll && !scroll.hasStuff(el)) {
-          event.preventDefault();
-          return;
-        }
-
-        // cap scroll if would leak to parent
-        var delta = parseInt(event.originalEvent.deltaY, 10);
-        var outOfBounds = scroll.atTop(el, delta) || scroll.atBottom(el, delta);
-        if (outOfBounds) {
-          scroll.cap(el);
-          return;
-        }
-
-        // everything else
-        event.stopImmediatePropagation();
-      });
-
-      // for touch devices
-      $element.on('touchmove.scroll-isolate' + eventNamespace, function(event) {
-        var el = this;
-        var allowScrollObject = $(event.target).closest('.allowScroll');
-        var allowScroll = (allowScrollObject && allowScrollObject.length) ? true  : false;
-
-        // nothing to scroll
-        if (!allowScroll && !scroll.hasStuff(el)) {
-          event.preventDefault();
-          return;
-        }
-
-        // cap scroll prevents bounce on parents
-        scroll.cap(el);
-      });
+  function setBodyUnscrollable(lockScroll) {
+    var $body = $('body');
+    if (lockScroll) {
+      bodyScrollTop = document.body.scrollTop;
+      $body.addClass('ddm-menu-scroll-lock').css('top', -bodyScrollTop + 'px');
+    } else {
+      $body.removeClass('ddm-menu-scroll-lock').css('top', '');
+      document.body.scrollTop = bodyScrollTop;
     }
-  };
-
-
+  }
 
   $(function ensureOverlay() {
 
@@ -92,9 +23,6 @@ ddm.menu = (function ($) {
     // create overlay
     $overlay = $('<div class="ddm-menu-container__overlay"></div>');
     $overlay.prependTo('.ddm-menu-container');
-
-    // events
-    scroll.kill($overlay.get(0), '.overlay.ddm-menu');
 
     $overlay.on('click.overlay.ddm-menu', function (event) {
       ddm.menu($('.ddm-menu--open')).close();
@@ -232,9 +160,8 @@ ddm.menu = (function ($) {
 
 
     /*= events =*/
-    scroll.isolate($element.get(0));
-
     $element.on('open.ddm-menu', function () {
+      setBodyUnscrollable(true);
       $element.scrollTop(0);
       $element.addClass('ddm-menu--open');
       $element.focus();
@@ -242,6 +169,7 @@ ddm.menu = (function ($) {
     });
 
     $element.on('close.ddm-menu', function () {
+      setBodyUnscrollable(false);
       $container.removeClass(containerClass);
       $element.removeClass('ddm-menu--open');
     });
@@ -287,3 +215,9 @@ ddm.menu = (function ($) {
   return menu;
 
 })(jQuery);
+
+// Allows webpack projects to easily import this bundle
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = ddm.menu;
+}
+

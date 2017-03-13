@@ -69,6 +69,14 @@
   left: 0;
 }
 
+.ddm-menu-scroll-lock {
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
 /*
  * Android 4.0.4 Content Scroll Hack
  *
